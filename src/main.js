@@ -23,7 +23,7 @@ window.onload = function() {
     var model_name = prompt("Enter model name (without the \".json\" extension):");
 
     console.log(`Loading model "${model_name}"...`);
-    $.getJSON("http://localhost:8000/models/box_on_string.json", function(data) {
+    $.getJSON(`http://localhost:8000/models/${model_name}.json`, function(data) {
         parse_model(data, points, sticks, update);
     });
 
