@@ -6,5 +6,7 @@ Based off of Coding Math's [Verlet Integration videos](https://youtube.com/playl
 1. Clone or download the source code
 2. Run the `server.py` file (used for local file access)
 3. Open `index.html` in a web-browser
+4. Enter the name of the JSON model file (without the extension)
 
-ill get github pages up at some point
+### Making Your Own Models
+TBD
