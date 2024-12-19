@@ -1,19 +1,19 @@
 import { distance } from "./misc.js";
 
-export function update_points(points, gravity, friction) {
+export function update_points(points, physics_constants) {
     for (var i = 0; i < points.length; i++) {
         var point = points[i];
 
         if (!point.pinned) {
-            var vx = (point.x - point.old_x) * friction;
-            var vy = (point.y - point.old_y) * friction;
+            var vx = (point.x - point.old_x) * physics_constants.friction;
+            var vy = (point.y - point.old_y) * physics_constants.friction;
 
             point.old_x = point.x;
             point.old_y = point.y;
 
             point.x += vx;
             point.y += vy;
-            point.y += gravity;
+            point.y += physics_constants.gravity;
         }
     }
 }

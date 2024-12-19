@@ -14,9 +14,11 @@ window.onload = function() {
     var points = [];
     var sticks = [];
 
-    const bounce = 0.9;
-    const gravity = 0.5;
-    const friction = 0.999;
+    const physics_constants = {
+        bounce: 0.9,
+        gravity: 0.5,
+        friction: 0.999
+    }
 
     const iterations = 3;
 
@@ -28,11 +30,11 @@ window.onload = function() {
     });
 
     function update() {
-        update_points(points, gravity, friction);
+        update_points(points, physics_constants);
 
         for (var i = 0; i < iterations; i++) {
             update_sticks(sticks);
-            constrain_points(points, friction, bounce, width, height);
+            constrain_points(points, physics_constants, width, height);
         }
 
         context.clearRect(0, 0, width, height);

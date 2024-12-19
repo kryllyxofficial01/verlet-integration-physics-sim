@@ -1,36 +1,36 @@
-export function constrain_points(points, friction, bounce, canvas_width, canvas_height) {
+export function constrain_points(points, physics_constants, canvas_width, canvas_height) {
     for (var i = 0; i < points.length; i++) {
         var point = points[i];
 
         if (!point.pinned) {
-            var vx = (point.x - point.old_x) * friction;
-            var vy = (point.y - point.old_y) * friction;
+            var vx = (point.x - point.old_x) * physics_constants.friction;
+            var vy = (point.y - point.old_y) * physics_constants.friction;
 
-            handle_horizontal_collision(point, vx, bounce, canvas_width);
-            handle_vertical_collision(point, vy, bounce, canvas_height);
+            handle_horizontal_collision(point, vx, physics_constants, canvas_width);
+            handle_vertical_collision(point, vy, physics_constants, canvas_height);
         }
     }
 }
 
-export function handle_horizontal_collision(point, vx, bounce, canvas_width) {
+export function handle_horizontal_collision(point, vx, physics_constants, canvas_width) {
     if (point.x > canvas_width) {
         point.x = canvas_width;
-        point.old_x = point.x + vx * bounce;
+        point.old_x = point.x + vx * physics_constants.bounce;
     }
     else if (point.x < 0) {
         point.x = 0;
-        point.old_x = point.x + vx * bounce;
+        point.old_x = point.x + vx * physics_constants.bounce;
     }
 }
 
-export function handle_vertical_collision(point, vy, bounce, canvas_height) {
+export function handle_vertical_collision(point, vy, physics_constants, canvas_height) {
     if (point.y > canvas_height) {
         point.y = canvas_height;
-        point.old_y = point.y + vy * bounce;
+        point.old_y = point.y + vy * physics_constants.bounce;
     }
     else if (point.y < 0) {
         point.y = 0;
-        point.old_y = point.y + vy * bounce;
+        point.old_y = point.y + vy * physics_constants.bounce;
     }
 }
 
