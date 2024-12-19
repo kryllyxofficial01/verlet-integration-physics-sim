@@ -1,7 +1,7 @@
-import { parse_model } from "./model_loader.js";
-import { update_points, update_sticks } from "./updater.js";
-import { render_points, render_sticks } from "./renderer.js";
-import { constrain_points } from "./misc.js";
+import * as loader from "./model_loader.js";
+import * as updater from "./updater.js";
+import * as renderer from "./renderer.js";
+import * as utils from "./misc.js";
 
 window.onload = function() {
     var canvas = document.getElementById("canvas");
@@ -26,21 +26,21 @@ window.onload = function() {
 
     console.log(`Loading model "${model_name}"...`);
     $.getJSON(`http://localhost:8000/models/${model_name}.json`, function(data) {
-        parse_model(data, points, sticks, update);
+        loader.parse_model(data, points, sticks, update);
     });
 
     function update() {
-        update_points(points, physics_constants);
+        updater.update_points(points, physics_constants);
 
         for (var i = 0; i < iterations; i++) {
-            update_sticks(sticks);
-            constrain_points(points, physics_constants, width, height);
+            updater.update_sticks(sticks);
+            utils.constrain_points(points, physics_constants, width, height);
         }
 
         context.clearRect(0, 0, width, height);
 
-        render_points(context, points);
-        render_sticks(context, sticks);
+        renderer.render_points(context, points);
+        renderer.render_sticks(context, sticks);
 
         requestAnimationFrame(update);
     }

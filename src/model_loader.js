@@ -1,4 +1,4 @@
-import { distance } from "./misc.js";
+import * as utils from "./misc.js";
 
 export function parse_model(model_data, points, sticks, model_update_func) {
     for (var i = 0; i < model_data.points.length; i++) {
@@ -10,7 +10,7 @@ export function parse_model(model_data, points, sticks, model_update_func) {
 
         stick.point_a = points[stick.point_a];
         stick.point_b = points[stick.point_b];
-        stick.length = distance(stick.point_a, stick.point_b);
+        stick.length = utils.distance(stick.point_a, stick.point_b);
 
         sticks[i] = stick;
     }

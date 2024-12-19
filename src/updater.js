@@ -1,4 +1,4 @@
-import { distance } from "./misc.js";
+import * as utils from "./misc.js";
 
 export function update_points(points, physics_constants) {
     for (var i = 0; i < points.length; i++) {
@@ -25,10 +25,10 @@ export function update_sticks(sticks) {
         var dx = stick.point_b.x - stick.point_a.x;
         var dy = stick.point_b.y - stick.point_a.y;
 
-        var _distance = distance(stick.point_a, stick.point_b);
+        var distance = utils.distance(stick.point_a, stick.point_b);
 
-        var difference = stick.length - _distance;
-        var offset_percent = difference / _distance / 2;
+        var difference = stick.length - distance;
+        var offset_percent = difference / distance / 2;
 
         var offset_x = dx * offset_percent;
         var offset_y = dy * offset_percent;
