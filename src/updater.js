@@ -1,19 +1,38 @@
+import * as renderer from "./renderer.js"
 import * as utils from "./misc.js";
 
-export function update_points(points, physics_constants) {
+export function update(points, sticks, canvas_context, canvas_dimensions) {
+    update_points(points);
+
+    for (var i = 0; i < utils.ITERATIONS; i++) {
+        update_sticks(sticks);
+        utils.constrain_points(points, canvas_dimensions);
+    }
+
+    canvas_context.clearRect(0, 0, canvas_dimensions.width, canvas_dimensions.height);
+
+    renderer.render_points(canvas_context, points);
+    renderer.render_sticks(canvas_context, sticks);
+
+    requestAnimationFrame(function() {
+        update(points, sticks, canvas_context, canvas_dimensions)
+    });
+}
+
+export function update_points(points) {
     for (var i = 0; i < points.length; i++) {
         var point = points[i];
 
         if (!point.pinned) {
-            var vx = (point.x - point.old_x) * physics_constants.friction;
-            var vy = (point.y - point.old_y) * physics_constants.friction;
+            var vx = (point.x - point.old_x) * utils.physics_constants.friction;
+            var vy = (point.y - point.old_y) * utils.physics_constants.friction;
 
             point.old_x = point.x;
             point.old_y = point.y;
 
             point.x += vx;
             point.y += vy;
-            point.y += physics_constants.gravity;
+            point.y += utils.physics_constants.gravity;
         }
     }
 }
